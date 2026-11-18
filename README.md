@@ -3,7 +3,16 @@
 Control your Windows PC with your hand.
 HandGesture Launcher uses your webcam to count how many fingers you are raising and launches any application **you choose** for each finger count (1‑5). Everything is configurable, everything runs locally, and no video ever leaves your computer.
 
-![Concept](assets/screenshot_placeholder.png)
+## Application Screenshots
+
+### Dashboard Overview
+![Dashboard](assets/screenshots/dashboard-overview.png)
+
+### Real-Time Gesture Detection
+![Gesture Detection](assets/screenshots/gesture-detection.png)
+
+### Application Settings
+![Settings](assets/screenshots/settings.png)
 
 ---
 
