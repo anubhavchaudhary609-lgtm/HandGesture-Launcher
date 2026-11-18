@@ -129,8 +129,26 @@ class GestureEngine:
 
 
 def finger_count_rule(hand: HandLandmarks) -> Optional[str]:
+    pts = hand.points
+
+    if len(pts) < 21:
+        return None
+
+    index_up = pts[INDEX_TIP][1] < pts[INDEX_PIP][1]
+    middle_up = pts[MIDDLE_TIP][1] < pts[MIDDLE_PIP][1]
+    ring_up = pts[RING_TIP][1] < pts[RING_PIP][1]
+    pinky_up = pts[PINKY_TIP][1] < pts[PINKY_PIP][1]
+
+    # Rock On: index and pinky extended.
+    if index_up and pinky_up and not middle_up and not ring_up:
+        return "rock_sign"
+
+    # V-sign: index and middle extended.
+    if index_up and middle_up and not ring_up and not pinky_up:
+        return "v_sign"
+
     n = count_fingers(hand)
-    return f"{n}_finger" if n >= 0 else None
+    return f"{n}_finger"
 
 
 def gesture_to_finger_count(gesture: Optional[str]) -> Optional[int]:
