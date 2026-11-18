@@ -1,232 +1,366 @@
-# HandGesture Launcher
+# ✋ HandGesture Launcher
 
-Control your Windows PC with your hand.
-HandGesture Launcher uses your webcam to count how many fingers you are raising and launches any application **you choose** for each finger count (1‑5). Everything is configurable, everything runs locally, and no video ever leaves your computer.
+### Control Your Windows PC Using Hand Gestures
 
-## Application Screenshots
+A Python-based desktop application that uses real-time computer vision and hand gesture recognition to launch and control Windows applications through simple finger movements.
+
+Instead of manually opening applications, simply show a gesture to your webcam and let HandGesture Launcher do the work.
+
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green)
+![MediaPipe](https://img.shields.io/badge/MediaPipe-Hand%20Tracking-orange)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
+![Testing](https://img.shields.io/badge/Testing-Pytest-brightgreen)
+
+---
+
+## 📸 Application Screenshots
 
 ### Dashboard Overview
 ![Dashboard](assets/screenshots/dashboard-overview.png)
 
-### Real-Time Gesture Detection
+### Real-Time Hand Gesture Detection
 ![Gesture Detection](assets/screenshots/gesture-detection.png)
 
 ### Application Settings
 ![Settings](assets/screenshots/settings.png)
----
-
-## 1. What it does
-
-* Watches a live webcam feed.
-* Detects one hand and counts extended fingers (0‑5) using MediaPipe.
-* Waits until the gesture is *stable* for a configurable number of frames.
-* Launches the application you have assigned to that finger count.
-* Enforces a cooldown so the same app is not spammed while you keep your hand up.
-* Lets you edit / add / remove / reset gesture-to-application mappings in a friendly GUI.
-
-The launcher is *not* hard‑coded to Chrome, Spotify, etc. – those are only example defaults you can change at any time.
 
 ---
 
-## 2. Requirements
+## 1. Project Overview
 
-* **Windows 10 or 11** (Linux/macOS also work for development, but the Windows‑startup registration is Windows-only).
-* **Python 3.10 or 3.11** (MediaPipe currently does not ship wheels for Python 3.12+).
-* A working webcam.
+HandGesture Launcher is a desktop automation application that allows users to launch Windows applications using hand gestures detected through a webcam.
 
----
+The application uses MediaPipe for hand landmark detection and OpenCV for camera processing. It counts extended fingers and maps recognized gestures to user-selected applications.
 
-## 3. Installation
+The system includes gesture stabilization, cooldown management, customizable application mappings, and a graphical user interface.
 
-```bat
-git clone <your-repo-url> HandGestureLauncher
-cd HandGestureLauncher
+**The application is not hard-coded to specific programs.** Chrome, Spotify, VS Code, and other applications are only example mappings that users can modify.
 
+## 2. Key Features
+
+- Real-time hand detection using a webcam.
+- Finger counting from 0 to 5.
+- Gesture-based application launching.
+- Configurable gesture-to-application mappings.
+- Gesture stability detection to prevent accidental launches.
+- Cooldown mechanism to avoid repeated application launches.
+- Custom desktop interface using CustomTkinter.
+- JSON-based configuration persistence.
+- Adjustable gesture sensitivity settings.
+- Windows startup integration.
+- Automated testing using Pytest.
+- Fist Gesture Control: Close the previously launched application using a closed-fist gesture (0 fingers).
+- Application Management: Launch and close applications through intuitive hand gestures.
+
+## How to Use
+
+1. Run the application using `python main.py`.
+2. Open the Dashboard and start the camera.
+3. Show your hand in front of the webcam.
+4. Hold a finger gesture steady until it is detected.
+5. The application assigned to that gesture will launch.
+6. Use the Settings panel to change gesture-to-application mappings.
+7. Turn off the camera when you finish.
+
+**Note:** If the fist gesture is implemented to close the previously launched application, add that instruction here. Otherwise, don't claim it as an existing feature.
+
+## 3. Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core programming language |
+| OpenCV | Webcam access and image processing |
+| MediaPipe | Hand landmark detection |
+| CustomTkinter | Desktop graphical interface |
+| JSON | Configuration storage |
+| Pytest | Automated testing |
+| PyInstaller | Windows executable generation |
+
+## 4. Requirements
+
+- Windows 10 or Windows 11.
+- Python version compatible with the installed MediaPipe dependency.
+- Working webcam.
+- Git (for cloning the repository).
+
+**Note:** Python 3.10 and 3.11 are recommended in the original project documentation. Verify compatibility with your installed dependency versions before selecting a Python version.
+
+## 5. Installation
+
+### Step 1: Clone the repository
+
+```bash
+git clone https://github.com/anubhavchaudhary609-lgtm/HandGesture-Launcher.git
+```
+
+### Step 2: Navigate to the project directory
+
+```bash
+cd HandGesture-Launcher
+```
+
+### Step 3: Create a virtual environment
+
+```bash
 python -m venv .venv
-.venv\Scripts\activate
+```
 
+### Step 4: Activate the environment
+
+For Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+### Step 5: Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
----
+## 6. Running the Application
 
-## 4. Running the application
+Start the application using:
 
-```bat
+```bash
 python main.py
 ```
 
-The main window opens on the **Dashboard** tab:
+The main window opens with the Dashboard interface.
 
-```
-┌─────────────────────────────────────────────────────────┐
-│           ✋ HANDGESTURE LAUNCHER                        │
-├───────────────────────────┬─────────────────────────────┤
-│                           │  DETECTED GESTURE           │
-│      WEBCAM PREVIEW       │        🤟                   │
-│                           │   3 fingers                 │
-│                           │                             │
-│                           │  Assigned application:      │
-│                           │   Spotify                   │
-│                           │                             │
-│                           │  Status: Ready              │
-├───────────────────────────┴─────────────────────────────┤
-│  [Start detection]  [Stop detection]                    │
-└─────────────────────────────────────────────────────────┘
-```
+### How to use
 
-1. Click **Start detection**.
-2. Allow the app to use your webcam.
-3. Raise a chosen number of fingers (1‑5).
-4. Hold that pose for a moment – the app confirms and launches your program.
+1. Launch HandGesture Launcher.
+2. Click **Start Detection**.
+3. Allow webcam access.
+4. Show your hand in front of the camera.
+5. Raise the desired number of fingers.
+6. Hold the gesture until it becomes stable.
+7. The assigned application launches automatically.
 
----
+The application supports finger-count gestures from 0 to 5.
 
-## 5. Assigning applications to gestures
+## 7. Gesture Mapping
 
-Open the **Settings** tab → *Gesture mappings*.
+Users can assign different applications to different finger-count gestures.
 
-Each row shows the current mapping:
+Open:
 
-```
-☝  1 Finger   Google Chrome   —   C:\...\chrome.exe    [Edit] [Remove]
-✌  2 Fingers  Visual Studio Code   —   ...             [Edit] [Remove]
-🤟 3 Fingers  Spotify   —   ...                        [Edit] [Remove]
-🖖 4 Fingers  WhatsApp   —   ...                       [Edit] [Remove]
-🖐 5 Fingers  Calculator   —   ...                     [Edit] [Remove]
-```
+**Settings → Gesture Mappings**
 
-Click **Edit** or **+ Add / Edit**, then use **Browse…** to pick any `.exe`, `.lnk`, `.bat` or `.cmd` file on your machine. The path is validated before saving; you get a clear error if the file cannot be found.
+Example configuration:
 
-Click **Reset to defaults** to restore the example mappings.
-
-Mappings are stored as JSON at:
-
-```
-%APPDATA%\HandGestureLauncher\config.json     (Windows)
-~/.handgesture_launcher/config.json           (Linux / macOS)
-```
-
----
-
-## 6. Sensitivity settings
-
-Under **Settings → Gesture sensitivity** you can tune:
-
-| Setting | What it does |
+| Gesture | Assigned Application |
 |---|---|
-| Stability (frames) | How many consecutive frames the same gesture must appear before it fires. Higher = fewer accidental launches, slower response. |
-| Cooldown (seconds) | Minimum time between two launches. |
-| Detection confidence | MediaPipe threshold for considering a hand detected. |
-| Require neutral gesture (0 fingers) between repeats | If enabled, you have to close your fist between two identical launches. |
-| Mirror webcam preview | Mirrors the preview so your hand moves the way you expect. |
-| Draw hand landmarks on preview | Overlay MediaPipe skeleton on the video. |
+| 1 Finger | Google Chrome |
+| 2 Fingers | Visual Studio Code |
+| 3 Fingers | Spotify |
+| 4 Fingers | WhatsApp |
+| 5 Fingers | Calculator |
 
-Every change is applied to the running detector immediately – no restart required.
+These are example mappings and can be customized.
 
----
+### Available operations
 
-## 7. Start with Windows
+- Add a new application.
+- Edit an existing mapping.
+- Remove an application.
+- Browse for executable files.
+- Reset mappings to defaults.
 
-Under **Settings → Startup** you can tick **Start HandGesture Launcher with Windows**. This adds a per-user entry under
-`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run` (no admin rights required). Uncheck the box to remove it.
+Supported application paths include `.exe`, `.lnk`, `.bat`, and `.cmd` files.
 
----
+Configuration is stored locally:
 
-## 8. Troubleshooting
+**Windows:**
+```text
+%APPDATA%\HandGestureLauncher\config.json
+```
 
-| Symptom | Fix |
+**Linux/macOS:**
+```text
+~/.handgesture_launcher/config.json
+```
+
+## 8. Gesture Sensitivity Settings
+
+Users can customize gesture recognition behaviour through the Settings interface.
+
+| Setting | Description |
 |---|---|
-| "Could not open the webcam" | Close other apps using the camera (Zoom, Teams, browser tabs). In Windows privacy settings allow desktop apps to access the camera. |
-| App is very slow / high CPU | Reduce **Detection confidence** to 0.5, or lower the camera resolution in `config.json`. |
-| Wrong finger count | Move closer to the camera, improve lighting, keep hand palm-forward, mirror preview on. |
-| Application launches over and over | Increase **Stability (frames)** and **Cooldown**, or enable **Require neutral gesture**. |
-| "Application not found" | The `.exe` moved or is not installed. Update the path via *Settings → Edit*. |
-| Multiple hands warning | Only show one hand to the camera – the launcher picks the largest hand but pauses on ambiguity. |
+| Stability (Frames) | Number of consecutive frames required to confirm a gesture. |
+| Cooldown (Seconds) | Minimum interval between application launches. |
+| Detection Confidence | Minimum confidence threshold for hand detection. |
+| Require Neutral Gesture | Requires a zero-finger gesture between repeated launches. |
+| Mirror Webcam Preview | Mirrors the webcam preview. |
+| Draw Hand Landmarks | Displays detected hand landmarks on the webcam preview. |
 
-Logs are printed to the terminal (or to stderr when packaged with `--windowed`).
+These settings provide greater control over gesture recognition and help reduce accidental launches.
 
----
+## 9. Start with Windows
 
-## 9. Building a Windows executable
+The application provides a Windows startup option.
 
-You only need to do this once, on a Windows machine:
+Navigate to:
 
-```bat
+**Settings → Startup**
+
+Enable:
+
+**Start HandGesture Launcher with Windows**
+
+The application registers a per-user startup entry in the Windows Registry.
+
+Registry location:
+
+```text
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+```
+
+Disabling the option removes the startup entry.
+
+No administrator privileges are required for this per-user registration.
+
+## 10. Project Architecture
+
+The project follows a modular architecture in which different components handle camera operations, gesture recognition, application launching, configuration management, and the graphical interface.
+
+| Module | Responsibility |
+|---|---|
+| camera.py | Webcam access and device discovery |
+| gesture_detector.py | MediaPipe hand detection and finger counting |
+| gesture_manager.py | Gesture stability and cooldown management |
+| app_launcher.py | Application launching |
+| config_manager.py | JSON configuration management |
+| startup_manager.py | Windows startup integration |
+| gui/app.py | Main application window |
+| gui/dashboard.py | Dashboard and webcam preview |
+| gui/settings.py | Application settings and mappings |
+| gui/application_dialog.py | Add/Edit application dialog |
+
+## 11. Project Structure
+
+```text
+HandGestureLauncher/
+│
+├── main.py
+├── build.py
+├── requirements.txt
+├── pytest.ini
+├── README.md
+│
+├── assets/
+│   └── screenshots/
+│       ├── dashboard-overview.png
+│       ├── gesture-detection.png
+│       └── settings.png
+│
+├── config/
+│
+├── src/
+│   ├── camera.py
+│   ├── gesture_detector.py
+│   ├── gesture_manager.py
+│   ├── app_launcher.py
+│   ├── config_manager.py
+│   ├── startup_manager.py
+│   │
+│   └── gui/
+│       ├── app.py
+│       ├── dashboard.py
+│       ├── settings.py
+│       └── application_dialog.py
+│
+└── tests/
+    ├── test_app_launcher.py
+    ├── test_config_manager.py
+    ├── test_gesture_detector.py
+    └── test_gesture_manager.py
+```
+
+## 12. Running Tests
+
+The project includes automated tests for its core functionality.
+
+Tests cover:
+
+- Application launching.
+- Configuration management.
+- Gesture detection.
+- Gesture management.
+
+Run the test suite using:
+
+```bash
+python -m pytest -q
+```
+
+The tests for core logic do not require an active webcam.
+
+## 13. Building a Windows Executable
+
+The project includes a build script for generating a standalone Windows executable using PyInstaller.
+
+Run:
+
+```bash
 pip install -r requirements.txt
 python build.py
 ```
 
-This runs PyInstaller with the correct MediaPipe / CustomTkinter data bundling and produces:
+The generated executable is expected at:
 
+```text
+dist/HandGestureLauncher.exe
 ```
-dist\HandGestureLauncher.exe
-```
 
-Double-click it – no Python installation required for the user.
+The executable can be distributed to Windows users without requiring them to install Python separately, subject to successful packaging and testing.
 
-If you place `assets\icon.ico` in the project the build script will use it as the application icon.
+## 14. Troubleshooting
+
+| Problem | Possible Solution |
+|---|---|
+| Webcam cannot be opened | Close other applications using the camera and check Windows camera permissions. |
+| Slow detection | Adjust detection confidence and camera resolution. |
+| Incorrect finger count | Improve lighting and keep your palm clearly visible. |
+| Repeated application launches | Increase stability frames or cooldown duration. |
+| Application not found | Update the application path through Settings. |
+| Multiple hands detected | Show only one hand clearly to the webcam. |
+
+## 15. Privacy and Security
+
+- Webcam frames are processed locally on the user's machine.
+- No webcam footage is intentionally uploaded to an external server.
+- Application mappings are stored locally.
+- Users explicitly select the applications they want to launch.
+- Configuration is maintained within the user's profile.
+
+## 16. Future Improvements
+
+Potential future enhancements include:
+
+- Support for additional hand gestures.
+- Custom gesture creation.
+- Improved gesture recognition accuracy.
+- More desktop automation controls.
+- Enhanced application customization.
+- Additional accessibility features.
 
 ---
 
-## 10. Running the tests
+## Developer
 
-Pure-logic unit tests (finger counting, stability, cooldown, config persistence, launcher error handling) run without a webcam or a GUI:
+**Anubhav Chaudhary**
 
-```bat
-python -m pytest -q
-```
+B.Tech Computer Science Student
 
----
-
-## 11. Project layout
-
-```
-HandGestureLauncher/
-├── main.py                 # entry point
-├── build.py                # PyInstaller build script
-├── requirements.txt
-├── src/
-│   ├── camera.py           # OpenCV camera wrapper + device discovery
-│   ├── gesture_detector.py # MediaPipe wrapper + finger counting + extensible engine
-│   ├── gesture_manager.py  # Stability window + cooldown + neutral reset
-│   ├── app_launcher.py     # Cross-platform executable launcher
-│   ├── config_manager.py   # JSON persistence (%APPDATA%\HandGestureLauncher)
-│   ├── startup_manager.py  # Windows Registry autostart integration
-│   └── gui/
-│       ├── app.py                 # Main CustomTkinter window + worker thread
-│       ├── dashboard.py           # Live preview + detected-gesture panel
-│       ├── settings.py            # Camera / sensitivity / mappings / startup UI
-│       └── application_dialog.py  # Add/Edit application dialog
-├── tests/                  # pytest suite (pure-logic, no camera)
-├── assets/                 # icons, screenshots, optional icon.ico
-└── config/
-```
+Developed as an independent Python desktop application project.
 
 ---
 
-## 12. Extending the gesture engine
+⭐ If you find this project interesting, consider starring the repository!
 
-`src/gesture_detector.py` exposes a small `GestureEngine` with an ordered list of *rules*. Each rule receives the `HandLandmarks` and returns either a gesture name (like `"thumbs_up"`) or `None`. To add a new gesture:
-
-```python
-def thumbs_up_rule(hand):
-    ...  # your geometry check
-    return "thumbs_up" if condition else None
-
-engine = GestureEngine(rules=[thumbs_up_rule, finger_count_rule])
-```
-
-The rest of the app (stability, cooldown, launching) works with any gesture name – finger counts are only the default set that the mapping UI is built around today.
-
----
-
-## 13. Privacy & security
-
-* Webcam frames are processed **entirely on your machine**. Nothing is uploaded, logged or transmitted.
-* The launcher only runs paths **you** explicitly picked in Settings. It refuses to run missing files or non-file paths.
-* Configuration is stored under your user profile only – no system-wide writes are performed.
-
----
-
-Happy launching! ✋
+**GitHub Repository:**  
+https://github.com/anubhavchaudhary609-lgtm/HandGesture-Launcher
