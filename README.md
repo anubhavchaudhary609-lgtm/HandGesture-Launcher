@@ -13,7 +13,6 @@ HandGesture Launcher uses your webcam to count how many fingers you are raising 
 
 ### Application Settings
 ![Settings](assets/screenshots/settings.png)
-
 ---
 
 ## 1. What it does
