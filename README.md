@@ -25,6 +25,9 @@ Instead of manually opening applications, simply show a gesture to your webcam a
 ### Application Settings
 ![Settings](assets/screenshots/settings.png)
 
+### Gesture Mapping Configuration
+![Gesture Mapping](assets/screenshots/gesture-mapping.png)
+
 ---
 
 ## 1. Project Overview
